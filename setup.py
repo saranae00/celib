@@ -4,7 +4,7 @@ with open("README.md", encoding="utf-8") as f:  # README.md 내용 읽어오기
     long_description = f.read()
 setup(
     name="celib",
-    version="0.0.2",
+    version="0.0.2.1",
     description="celib",
     author="cekwak",
     author_email="saranae00@gmail.com",
