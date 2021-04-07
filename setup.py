@@ -3,16 +3,16 @@ from setuptools import setup, find_packages
 with open("README.md", encoding="utf-8") as f:  # README.md 내용 읽어오기
     long_description = f.read()
 setup(
-    name="ceCommon",
+    name="celib",
     version="0.0.1",
-    description="ceCommon",
+    description="celib",
     author="cekwak",
     author_email="saranae00@gmail.com",
     url="https://github.com/saranae00/celib",
     download_url="https://github.com/saranae00/celib/archive/refs/tags/0.0.1.tar.gz",
     install_requires=["pandas", "numpy", "pathos"],
     packages=find_packages(exclude=[]),
-    keywords=["ceCommon"],
+    keywords=["celib"],
     python_requires=">=3.6",
     package_data={},
     zip_safe=False,
@@ -22,5 +22,5 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
-    py_modules=["common"],
+    py_modules=["celib.common"],
 )
