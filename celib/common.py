@@ -183,6 +183,7 @@ def string_to_boolean(arg_str: str):
         문자열이 "true", "1", "yes" 이면 True,
         문자열이 "false", "0", "no" 이면 False,
         그 외엔 np.NaN 리턴
+        
     Args:
         arg_str (str): 변환할 문자열
 

@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ko" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Celib &mdash; celib 0.0.2 문서</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="prev" title="Welcome to celib’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> celib
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Celib:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Celib</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">celib</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Celib</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/Celib.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-celib.celib.common">
+<span id="celib"></span><h1>Celib<a class="headerlink" href="#module-celib.celib.common" title="제목 주소">¶</a></h1>
+<dl class="py class">
+<dt id="celib.celib.common.RunningTimeDecorator">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">celib.celib.common.</span></code><code class="sig-name descname"><span class="pre">RunningTimeDecorator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_section</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_pid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/celib/celib/common.html#RunningTimeDecorator"><span class="viewcode-link"><span class="pre">[소스]</span></span></a><a class="headerlink" href="#celib.celib.common.RunningTimeDecorator" title="정의 주소">¶</a></dt>
+<dd><p>실행 시간 표시 데코레이터</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="celib.celib.common.get_last_dir">
+<code class="sig-prename descclassname"><span class="pre">celib.celib.common.</span></code><code class="sig-name descname"><span class="pre">get_last_dir</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">by</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'name'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/celib/celib/common.html#get_last_dir"><span class="viewcode-link"><span class="pre">[소스]</span></span></a><a class="headerlink" href="#celib.celib.common.get_last_dir" title="정의 주소">¶</a></dt>
+<dd><p>디렉토리 내림차순 정렬로 가장 마지막 디렉토리 경로 리턴
+by = 《name》 or 《mtime》</p>
+<dl class="field-list simple">
+<dt class="field-odd">매개변수</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dir</strong> (<em>str</em>) – 검색할 디렉토리 경로</p></li>
+<li><p><strong>by</strong> (<em>str</em><em>, </em><em>optional</em>) – Defaults to 《name》.
+《name》: 디렉토리 이름
+《mtime》: 수정 시간
+《ctime》: 생성 시간
+《atime》: 액세스 시간</p></li>
+</ul>
+</dd>
+<dt class="field-even">반환값</dt>
+<dd class="field-even"><p>마지막 디렉토리 경로</p>
+</dd>
+<dt class="field-odd">반환 형식</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="celib.celib.common.list_chunk">
+<code class="sig-prename descclassname"><span class="pre">celib.celib.common.</span></code><code class="sig-name descname"><span class="pre">list_chunk</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_item</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/celib/celib/common.html#list_chunk"><span class="viewcode-link"><span class="pre">[소스]</span></span></a><a class="headerlink" href="#celib.celib.common.list_chunk" title="정의 주소">¶</a></dt>
+<dd><p>리스트를 주어진 개수의 item 단위로 분할</p>
+<dl class="field-list simple">
+<dt class="field-odd">매개변수</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lst</strong> (<em>list</em>) – 분할할 리스트</p></li>
+<li><p><strong>n_item</strong> (<em>int</em>) – 분할할 각각의 item개수</p></li>
+</ul>
+</dd>
+<dt class="field-even">반환값</dt>
+<dd class="field-even"><p>분할된 리스트</p>
+</dd>
+<dt class="field-odd">반환 형식</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="celib.celib.common.parallelize_dataframe">
+<code class="sig-prename descclassname"><span class="pre">celib.celib.common.</span></code><code class="sig-name descname"><span class="pre">parallelize_dataframe</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/celib/celib/common.html#parallelize_dataframe"><span class="viewcode-link"><span class="pre">[소스]</span></span></a><a class="headerlink" href="#celib.celib.common.parallelize_dataframe" title="정의 주소">¶</a></dt>
+<dd><p>데이터프레임을 분할해서 cpu 병렬처리
+multi process</p>
+<dl class="field-list simple">
+<dt class="field-odd">매개변수</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>[</em><em>type</em><em>]</em>) – cpu 병렬처리에 사용할 함수</p></li>
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – 분할할 데이터프레임</p></li>
+</ul>
+</dd>
+<dt class="field-even">반환값</dt>
+<dd class="field-even"><p>cpu 병렬처리된 데이터프레임</p>
+</dd>
+<dt class="field-odd">반환 형식</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="celib.celib.common.parallelize_dataframe_with_args">
+<code class="sig-prename descclassname"><span class="pre">celib.celib.common.</span></code><code class="sig-name descname"><span class="pre">parallelize_dataframe_with_args</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/celib/celib/common.html#parallelize_dataframe_with_args"><span class="viewcode-link"><span class="pre">[소스]</span></span></a><a class="headerlink" href="#celib.celib.common.parallelize_dataframe_with_args" title="정의 주소">¶</a></dt>
+<dd><p>데이터프레임을 분할해서 cpu 병렬처리(func에 인자값이 필요한 경우)
+multi process</p>
+<dl class="field-list simple">
+<dt class="field-odd">매개변수</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>[</em><em>type</em><em>]</em>) – cpu 병렬처리에 사용할 함수</p></li>
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – 분할할 데이터프레임</p></li>
+<li><p><strong>args</strong> – func에 들어갈 인자값</p></li>
+</ul>
+</dd>
+<dt class="field-even">반환값</dt>
+<dd class="field-even"><p>cpu 병렬처리된 데이터프레임</p>
+</dd>
+<dt class="field-odd">반환 형식</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="celib.celib.common.set_random_seed">
+<code class="sig-prename descclassname"><span class="pre">celib.celib.common.</span></code><code class="sig-name descname"><span class="pre">set_random_seed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">47</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/celib/celib/common.html#set_random_seed"><span class="viewcode-link"><span class="pre">[소스]</span></span></a><a class="headerlink" href="#celib.celib.common.set_random_seed" title="정의 주소">¶</a></dt>
+<dd><p>랜덤 시드 초기화</p>
+<dl class="field-list simple">
+<dt class="field-odd">매개변수</dt>
+<dd class="field-odd"><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 랜덤 시드 초기화 값. Defaults to 47.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="celib.celib.common.string_to_boolean">
+<code class="sig-prename descclassname"><span class="pre">celib.celib.common.</span></code><code class="sig-name descname"><span class="pre">string_to_boolean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/celib/celib/common.html#string_to_boolean"><span class="viewcode-link"><span class="pre">[소스]</span></span></a><a class="headerlink" href="#celib.celib.common.string_to_boolean" title="정의 주소">¶</a></dt>
+<dd><dl class="simple">
+<dt>str을 boolean으로 변환</dt><dd><p>문자열이 《true》, 《1》, 《yes》 이면 True,
+문자열이 《false》, 《0》, 《no》 이면 False,
+그 외엔 np.NaN 리턴</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">매개변수</dt>
+<dd class="field-odd"><p><strong>arg_str</strong> (<em>str</em>) – 변환할 문자열</p>
+</dd>
+<dt class="field-even">반환값</dt>
+<dd class="field-even"><p>변환된 값</p>
+</dd>
+<dt class="field-odd">반환 형식</dt>
+<dd class="field-odd"><p>bool or np.NaN</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="celib.celib.common.unnesting">
+<code class="sig-prename descclassname"><span class="pre">celib.celib.common.</span></code><code class="sig-name descname"><span class="pre">unnesting</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">explode_columns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/celib/celib/common.html#unnesting"><span class="viewcode-link"><span class="pre">[소스]</span></span></a><a class="headerlink" href="#celib.celib.common.unnesting" title="정의 주소">¶</a></dt>
+<dd><p>멀티컬럼 explode</p>
+<dl class="field-list simple">
+<dt class="field-odd">매개변수</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – explode할 데이터프레임</p></li>
+<li><p><strong>explode_columns</strong> (<em>list</em>) – explode할 컬럼</p></li>
+</ul>
+</dd>
+<dt class="field-even">반환값</dt>
+<dd class="field-even"><p>explode된 데이터프레임</p>
+</dd>
+<dt class="field-odd">반환 형식</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to celib’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, cekwak.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

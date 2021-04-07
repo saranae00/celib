@@ -1,0 +1,447 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ko" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>celib.celib.common &mdash; celib 0.0.2 문서</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="색인" href="../../../genindex.html" />
+    <link rel="search" title="검색" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> celib
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Celib:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Celib.html">Celib</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">celib</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">모듈 코드</a> &raquo;</li>
+        
+      <li>celib.celib.common</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>celib.celib.common의 소스 코드</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">cpu_count</span>
+<span class="kn">from</span> <span class="nn">pathos.multiprocessing</span> <span class="kn">import</span> <span class="n">ProcessingPool</span> <span class="k">as</span> <span class="n">Pool</span>
+
+
+<div class="viewcode-block" id="RunningTimeDecorator"><a class="viewcode-back" href="../../../Celib.html#celib.celib.common.RunningTimeDecorator">[문서]</a><span class="k">class</span> <span class="nc">RunningTimeDecorator</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;실행 시간 표시 데코레이터</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_section</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">show_pid</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;init</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            logger ([type], optional): 사용할 logger. Defaults to None.</span>
+<span class="sd">            show_section (bool, optional): 해당 함수의 실행 시작과 끝을 표시할 것인지. Defaults to True.</span>
+<span class="sd">            show_pid (bool, optional): 해당 함수가 실행되는 process ID를 표시할 것인지. Defaults to True.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__param</span> <span class="o">=</span> <span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__show_section</span> <span class="o">=</span> <span class="n">show_section</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__show_pid</span> <span class="o">=</span> <span class="n">show_pid</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;call</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            func ([type]): 실행 시간을 표시할 함수</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">printLog</span><span class="p">(</span><span class="n">str_arg</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;로그 출력</span>
+<span class="sd">            logger가 존재하면 logger에 str_arg 출력</span>
+<span class="sd">            존재하지 않으면 print로 str_arg 출력</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                str_arg (str): 출력할 문자열</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__param</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">):</span>
+                <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__param</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">str_arg</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">str_arg</span><span class="p">)</span>
+
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;decorator</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                [type]: 실행시간을 표시할 함수의 리턴 값</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+            <span class="n">str_current_pid</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__show_section</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__show_pid</span><span class="p">:</span>
+                    <span class="n">str_current_pid</span> <span class="o">=</span> <span class="s2">&quot;(PID:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+                <span class="n">str_start</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}{1}</span><span class="s2"> Started.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">str_current_pid</span><span class="p">)</span>
+                <span class="n">printLog</span><span class="p">(</span><span class="n">str_start</span><span class="p">)</span>
+
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__show_section</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__show_pid</span><span class="p">:</span>
+                    <span class="n">str_current_pid</span> <span class="o">=</span> <span class="s2">&quot;(PID:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+                <span class="n">str_finish</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}{1}</span><span class="s2"> Finished.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">str_current_pid</span><span class="p">)</span>
+                <span class="n">printLog</span><span class="p">(</span><span class="n">str_finish</span><span class="p">)</span>
+            <span class="n">str_log</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}{1}</span><span class="s2"> Elapsed Time : </span><span class="si">{2:.2f}</span><span class="s2"> seconds&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">str_current_pid</span><span class="p">,</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+            <span class="p">)</span>
+            <span class="n">printLog</span><span class="p">(</span><span class="n">str_log</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="k">return</span> <span class="n">decorator</span></div>
+
+
+<div class="viewcode-block" id="get_last_dir"><a class="viewcode-back" href="../../../Celib.html#celib.celib.common.get_last_dir">[문서]</a><span class="k">def</span> <span class="nf">get_last_dir</span><span class="p">(</span><span class="nb">dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;name&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;디렉토리 내림차순 정렬로 가장 마지막 디렉토리 경로 리턴</span>
+<span class="sd">    by = &quot;name&quot; or &quot;mtime&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dir (str): 검색할 디렉토리 경로</span>
+<span class="sd">        by (str, optional): Defaults to &quot;name&quot;.</span>
+<span class="sd">            &quot;name&quot;: 디렉토리 이름</span>
+<span class="sd">            &quot;mtime&quot;: 수정 시간</span>
+<span class="sd">            &quot;ctime&quot;: 생성 시간</span>
+<span class="sd">            &quot;atime&quot;: 액세스 시간</span>
+<span class="sd">            </span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: 마지막 디렉토리 경로</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dir_list</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">,</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="nb">dir</span> <span class="o">+</span> <span class="s2">&quot;/*&quot;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;mtime&quot;</span><span class="p">:</span>
+        <span class="n">sort_by</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span>
+    <span class="k">elif</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;ctime&quot;</span><span class="p">:</span>
+        <span class="n">sort_by</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getctime</span>
+    <span class="k">elif</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;atime&quot;</span><span class="p">:</span>
+        <span class="n">sort_by</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getatime</span>
+    <span class="k">elif</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">dir_list</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">dir_list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">dir_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">sort_by</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="parallelize_dataframe"><a class="viewcode-back" href="../../../Celib.html#celib.celib.common.parallelize_dataframe">[문서]</a><span class="k">def</span> <span class="nf">parallelize_dataframe</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;데이터프레임을 분할해서 cpu 병렬처리</span>
+<span class="sd">    multi process</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        func ([type]): cpu 병렬처리에 사용할 함수</span>
+<span class="sd">        df (pd.DataFrame): 분할할 데이터프레임</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: cpu 병렬처리된 데이터프레임</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">num_cores</span> <span class="o">=</span> <span class="n">cpu_count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">num_cores</span><span class="p">)</span>
+
+    <span class="n">df_split</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">num_cores</span><span class="p">)</span>
+
+    <span class="n">len_df</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_split</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">len_df</span> <span class="o">&lt;</span> <span class="n">num_cores</span><span class="p">:</span>
+        <span class="n">num_cores</span> <span class="o">=</span> <span class="n">len_df</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">df_split</span><span class="p">))</span>
+
+    <span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">pool</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="n">pool</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="parallelize_dataframe_with_args"><a class="viewcode-back" href="../../../Celib.html#celib.celib.common.parallelize_dataframe_with_args">[문서]</a><span class="k">def</span> <span class="nf">parallelize_dataframe_with_args</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;데이터프레임을 분할해서 cpu 병렬처리(func에 인자값이 필요한 경우)</span>
+<span class="sd">    multi process</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        func ([type]): cpu 병렬처리에 사용할 함수</span>
+<span class="sd">        df (pd.DataFrame): 분할할 데이터프레임</span>
+<span class="sd">        args: func에 들어갈 인자값</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: cpu 병렬처리된 데이터프레임</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">num_cores</span> <span class="o">=</span> <span class="n">cpu_count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">num_cores</span><span class="p">)</span>
+
+    <span class="n">df_split</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">num_cores</span><span class="p">)</span>
+
+    <span class="n">len_df</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_split</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">len_df</span> <span class="o">&lt;</span> <span class="n">num_cores</span><span class="p">:</span>
+        <span class="n">num_cores</span> <span class="o">=</span> <span class="n">len_df</span>
+
+    <span class="n">list_tuple_args</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">list_args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">df_split</span><span class="p">:</span>
+        <span class="n">each_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">]</span>
+        <span class="n">each_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">list_args</span><span class="p">)</span>
+        <span class="n">list_tuple_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">each_list</span><span class="p">))</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">),</span> <span class="n">list_tuple_args</span><span class="p">))</span>
+    <span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">pool</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="n">pool</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="string_to_boolean"><a class="viewcode-back" href="../../../Celib.html#celib.celib.common.string_to_boolean">[문서]</a><span class="k">def</span> <span class="nf">string_to_boolean</span><span class="p">(</span><span class="n">arg_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;str을 boolean으로 변환</span>
+<span class="sd">        문자열이 &quot;true&quot;, &quot;1&quot;, &quot;yes&quot; 이면 True,</span>
+<span class="sd">        문자열이 &quot;false&quot;, &quot;0&quot;, &quot;no&quot; 이면 False,</span>
+<span class="sd">        그 외엔 np.NaN 리턴</span>
+<span class="sd">        </span>
+<span class="sd">    Args:</span>
+<span class="sd">        arg_str (str): 변환할 문자열</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool or np.NaN: 변환된 값</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">list_true</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;yes&quot;</span><span class="p">]</span>
+    <span class="n">list_false</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;false&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">arg_str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">list_true</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">arg_str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">list_false</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span></div>
+
+
+<div class="viewcode-block" id="set_random_seed"><a class="viewcode-back" href="../../../Celib.html#celib.celib.common.set_random_seed">[문서]</a><span class="k">def</span> <span class="nf">set_random_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">47</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;랜덤 시드 초기화</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        seed (int, optional): 랜덤 시드 초기화 값. Defaults to 47.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span></div>
+    <span class="c1"># tf.set_random_seed(seed)</span>
+    <span class="c1"># tf.random.set_seed(seed)</span>
+
+
+<div class="viewcode-block" id="list_chunk"><a class="viewcode-back" href="../../../Celib.html#celib.celib.common.list_chunk">[문서]</a><span class="k">def</span> <span class="nf">list_chunk</span><span class="p">(</span><span class="n">lst</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">n_item</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;리스트를 주어진 개수의 item 단위로 분할</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lst (list): 분할할 리스트</span>
+<span class="sd">        n_item (int): 분할할 각각의 item개수</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: 분할된 리스트</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">lst</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">n_item</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">),</span> <span class="n">n_item</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="unnesting"><a class="viewcode-back" href="../../../Celib.html#celib.celib.common.unnesting">[문서]</a><span class="k">def</span> <span class="nf">unnesting</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">explode_columns</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;멀티컬럼 explode</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): explode할 데이터프레임</span>
+<span class="sd">        explode_columns (list): explode할 컬럼</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: explode된 데이터프레임</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">list_columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">explode_columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">())</span>
+    <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)})</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">explode_columns</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">df1</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">idx</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">explode_columns</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">list_columns</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, cekwak.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
