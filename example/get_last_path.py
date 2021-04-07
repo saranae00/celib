@@ -7,5 +7,5 @@ if __name__ == "__main__":
     print("get_last_dir by ctime: " + get_last_path("./", by="ctime"))
     print("get_last_dir by mtime: " + get_last_path("./", by="mtime"))
     print("get_last_dir by atime: " + get_last_path("./", by="atime"))
-    print("get_last_path by atime: " + get_last_path("./", type="file"))
-    print("get_last_path by atime: " + get_last_path("./", type=".md"))
+    print("get_last_path on file: " + get_last_path("./", type="file"))
+    print("get_last_path on file ext: " + get_last_path("./", type=".md"))
