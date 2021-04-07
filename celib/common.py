@@ -83,33 +83,50 @@ class RunningTimeDecorator:
         return decorator
 
 
-def get_last_dir(dir: str, by: str = "name"):
+def get_last_path(dir: str, type: str = "dir", by: str = "name"):
     """디렉토리 내림차순 정렬로 가장 마지막 디렉토리 경로 리턴
     by = "name" or "mtime"
 
     Args:
         dir (str): 검색할 디렉토리 경로
+        type (str): 검색할 유형 설정
+            "dir": 디렉토리
+            "file": 파일
+            "all": 디렉토리 + 파일
+            "확장자": 해당 확장자를 가진 파일
         by (str, optional): Defaults to "name".
-            "name": 디렉토리 이름
+            "name": 이름
             "mtime": 수정 시간
             "ctime": 생성 시간
             "atime": 액세스 시간
 
     Returns:
-        str: 마지막 디렉토리 경로
+        str: 마지막 경로
     """
 
-    dir_list = filter(os.path.isdir, glob.glob(dir + "/*"))
-    if by == "mtime":
-        sort_by = os.path.getmtime
-    elif by == "ctime":
-        sort_by = os.path.getctime
-    elif by == "atime":
-        sort_by = os.path.getatime
-    elif by == "name":
-        print(type(max(dir_list)))
-        return max(dir_list)
-    return max(dir_list, key=sort_by)
+    if type == "dir":
+        dir_list = list(filter(os.path.isdir, glob.glob(dir + "/*")))
+    elif type == "file":
+        dir_list = list(filter(os.path.isfile, glob.glob(dir + "/*")))
+    elif type == "all":
+        dir_list = glob.glob(dir + "/*")
+    else:
+        dir_list = glob.glob(dir + "/*" + type)
+
+    last_path = ""
+
+    if len(dir_list) > 0:
+        if by == "mtime":
+            sort_by = os.path.getmtime
+        elif by == "ctime":
+            sort_by = os.path.getctime
+        elif by == "atime":
+            sort_by = os.path.getatime
+        elif by == "name":
+            return max(dir_list)
+
+        last_path = max(dir_list, key=sort_by)
+    return last_path
 
 
 def parallelize_dataframe(func, df: pd.DataFrame):
