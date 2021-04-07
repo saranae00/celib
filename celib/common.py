@@ -85,7 +85,6 @@ class RunningTimeDecorator:
 
 def get_last_path(dir: str, type: str = "dir", by: str = "name"):
     """디렉토리 내림차순 정렬로 가장 마지막 디렉토리 경로 리턴
-    by = "name" or "mtime"
 
     Args:
         dir (str): 검색할 디렉토리 경로

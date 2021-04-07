@@ -163,23 +163,27 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="celib.celib.common.get_last_dir">
-<code class="sig-prename descclassname"><span class="pre">celib.celib.common.</span></code><code class="sig-name descname"><span class="pre">get_last_dir</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">by</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'name'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/celib/celib/common.html#get_last_dir"><span class="viewcode-link"><span class="pre">[소스]</span></span></a><a class="headerlink" href="#celib.celib.common.get_last_dir" title="정의 주소">¶</a></dt>
-<dd><p>디렉토리 내림차순 정렬로 가장 마지막 디렉토리 경로 리턴
-by = 《name》 or 《mtime》</p>
+<dt id="celib.celib.common.get_last_path">
+<code class="sig-prename descclassname"><span class="pre">celib.celib.common.</span></code><code class="sig-name descname"><span class="pre">get_last_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'dir'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">by</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'name'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/celib/celib/common.html#get_last_path"><span class="viewcode-link"><span class="pre">[소스]</span></span></a><a class="headerlink" href="#celib.celib.common.get_last_path" title="정의 주소">¶</a></dt>
+<dd><p>디렉토리 내림차순 정렬로 가장 마지막 디렉토리 경로 리턴</p>
 <dl class="field-list simple">
 <dt class="field-odd">매개변수</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dir</strong> (<em>str</em>) – 검색할 디렉토리 경로</p></li>
+<li><p><strong>type</strong> (<em>str</em>) – 검색할 유형 설정
+《dir》: 디렉토리
+《file》: 파일
+《all》: 디렉토리 + 파일
+《확장자》: 해당 확장자를 가진 파일</p></li>
 <li><p><strong>by</strong> (<em>str</em><em>, </em><em>optional</em>) – Defaults to 《name》.
-《name》: 디렉토리 이름
+《name》: 이름
 《mtime》: 수정 시간
 《ctime》: 생성 시간
 《atime》: 액세스 시간</p></li>
 </ul>
 </dd>
 <dt class="field-even">반환값</dt>
-<dd class="field-even"><p>마지막 디렉토리 경로</p>
+<dd class="field-even"><p>마지막 경로</p>
 </dd>
 <dt class="field-odd">반환 형식</dt>
 <dd class="field-odd"><p>str</p>
