@@ -260,3 +260,24 @@ def unnesting(df: pd.DataFrame, explode_columns: list) -> pd.DataFrame:
     result = df1.join(df.drop(explode_columns, 1), how="left").reset_index(drop=True)
     result = result[list_columns]
     return result
+
+
+def trim_df(df: pd.DataFrame) -> pd.DataFrame:
+    """trim_df
+    Dataframe의 모든 컬럼에 trim 적용
+
+    Args:
+        df (pd.DataFrame): trim을 적용할 dataframe
+
+    Returns:
+        pd.DataFrame: trim 적용된 dataframe
+    """
+    df_obj = df.select_dtypes(["object"])
+    df[df_obj.columns] = df_obj.apply(lambda x: x.str.strip())
+    return df
+
+
+if __name__ == "__main__":
+    df = pd.DataFrame({"A": ["1  ", "  4", " 7"], "B": [2, 5, 8], "C": [" 3", "6", " 9   "]})
+    print(df)
+    print(trim_df(df))
