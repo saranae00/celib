@@ -83,7 +83,7 @@ class RunningTimeDecorator:
         return decorator
 
 
-def get_last_path(dir: str, type: str = "dir", by: str = "name"):
+def get_last_path(dir: str, type: str = "dir", by: str = "name") -> str:
     """디렉토리 내림차순 정렬로 가장 마지막 디렉토리 경로 리턴
 
     Args:
@@ -128,7 +128,7 @@ def get_last_path(dir: str, type: str = "dir", by: str = "name"):
     return last_path
 
 
-def parallelize_dataframe(func, df: pd.DataFrame):
+def parallelize_dataframe(func, df: pd.DataFrame) -> pd.DataFrame:
     """데이터프레임을 분할해서 cpu 병렬처리
     multi process
 
@@ -157,7 +157,7 @@ def parallelize_dataframe(func, df: pd.DataFrame):
     return df
 
 
-def parallelize_dataframe_with_args(func, df: pd.DataFrame, *args):
+def parallelize_dataframe_with_args(func, df: pd.DataFrame, *args) -> pd.DataFrame:
     """데이터프레임을 분할해서 cpu 병렬처리(func에 인자값이 필요한 경우)
     multi process
 
@@ -193,7 +193,7 @@ def parallelize_dataframe_with_args(func, df: pd.DataFrame, *args):
     return df
 
 
-def string_to_boolean(arg_str: str):
+def string_to_boolean(arg_str: str) -> bool:
     """str을 boolean으로 변환
         문자열이 "true", "1", "yes" 이면 True,
         문자열이 "false", "0", "no" 이면 False,
@@ -229,7 +229,7 @@ def set_random_seed(seed: int = 47):
     # tf.random.set_seed(seed)
 
 
-def list_chunk(lst: list, n_item: int):
+def list_chunk(lst: list, n_item: int) -> list:
     """리스트를 주어진 개수의 item 단위로 분할
 
     Args:
@@ -242,7 +242,7 @@ def list_chunk(lst: list, n_item: int):
     return [lst[i : i + n_item] for i in range(0, len(lst), n_item)]
 
 
-def unnesting(df: pd.DataFrame, explode_columns: list):
+def unnesting(df: pd.DataFrame, explode_columns: list) -> pd.DataFrame:
     """멀티컬럼 explode
 
     Args:
