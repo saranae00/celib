@@ -63,6 +63,7 @@ class RunningTimeDecorator:
                 if self.__show_pid:
                     str_current_pid = "(PID:" + str(os.getpid()) + ")"
                 str_start = "{0}{1} Started.".format(func.__name__, str_current_pid)
+                printLog("-" * 50)
                 printLog(str_start)
 
             start_time = time.time()
@@ -78,6 +79,7 @@ class RunningTimeDecorator:
                 func.__name__, str_current_pid, end_time - start_time
             )
             printLog(str_log)
+            printLog("-" * 50)
             return result
 
         return decorator
@@ -193,7 +195,7 @@ def parallelize_dataframe_with_args(func, df: pd.DataFrame, *args) -> pd.DataFra
     return df
 
 
-def string_to_boolean(arg_str: str) -> bool:
+def string_to_boolean(arg_str: str) -> bool or np.NaN:
     """str을 boolean으로 변환
         문자열이 "true", "1", "yes" 이면 True,
         문자열이 "false", "0", "no" 이면 False,
