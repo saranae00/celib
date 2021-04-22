@@ -63,7 +63,6 @@ class RunningTimeDecorator:
                 if self.__show_pid:
                     str_current_pid = "(PID:" + str(os.getpid()) + ")"
                 str_start = "{0}{1} Started.".format(func.__name__, str_current_pid)
-                printLog("-" * 50)
                 printLog(str_start)
 
             start_time = time.time()
@@ -79,7 +78,6 @@ class RunningTimeDecorator:
                 func.__name__, str_current_pid, end_time - start_time
             )
             printLog(str_log)
-            printLog("-" * 50)
             return result
 
         return decorator
