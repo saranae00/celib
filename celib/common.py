@@ -8,6 +8,8 @@ import glob
 from functools import wraps
 from multiprocessing import cpu_count
 from pathos.multiprocessing import ProcessingPool as Pool
+from typing import Any, List
+import operator
 
 
 class RunningTimeDecorator:
@@ -275,6 +277,59 @@ def trim_df(df: pd.DataFrame) -> pd.DataFrame:
     df_obj = df.select_dtypes(["object"])
     df[df_obj.columns] = df_obj.apply(lambda x: x.str.strip())
     return df
+
+
+class ListClass:
+    @property
+    def list_class(self) -> List:
+        return self.__list_class
+
+    @list_class.setter
+    def list_class(self, list_class: List) -> None:
+        self.__list_class = list_class
+
+    def __init__(self, list_class: List = []) -> None:
+        self.__list_class = list_class
+
+    def find_node(self, property_name: str, search_keyword: Any) -> List:
+        """list of class 에서 property_name 값이 search_keyword인 노드를 리턴
+
+        Args:
+            property_name (str): 검색할 class의 property 이름
+            search_keyword (object): 검색할 값
+
+        Returns:
+            List: 검색된 노드 리스트
+        """
+        return [x for x in self.__list_class if getattr(x, property_name) == search_keyword]
+
+    def contains_node(self, property_name: str, search_keyword: Any) -> bool:
+        """list of class 에서 property_name 값이 search_keyword인 노드가 존재하면 True, 아니면 False 리던
+
+        Args:
+            property_name (str): 검색할 class의 property 이름
+            search_keyword (object): 검색할 값
+
+        Returns:
+            bool: 검색 결과
+        """
+
+        def contains(list, filter):
+            for x in list:
+                if filter(x):
+                    return True
+            return False
+
+        return contains(self.__list_class, lambda x: getattr(x, property_name) == search_keyword)
+
+    def sort(self, property_name: str, reverse: bool = False) -> None:
+        """리스트 정렬
+
+        Args:
+            property_name (str): 정렬할 class의 property 이름
+            reverse (bool, optional): False - 오름차순, True - 내림차순. Defaults to True.
+        """
+        self.__list_class = sorted(self.__list_class, key=operator.attrgetter(property_name), reverse=reverse)
 
 
 if __name__ == "__main__":
