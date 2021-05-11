@@ -301,7 +301,16 @@ class ListClass:
         Returns:
             List: 검색된 노드 리스트
         """
-        return [x for x in self.__list_class if getattr(x, property_name) == search_keyword]
+        result = []
+        for x in self.__list_class:
+            if type(x) is dict:
+                if x[property_name] == search_keyword:
+                    result.append(x)
+            else:
+                if getattr(x, property_name) == search_keyword:
+                    result.append(x)
+
+        return result
 
     def contains_node(self, property_name: str, search_keyword: Any) -> bool:
         """list of class 에서 property_name 값이 search_keyword인 노드가 존재하면 True, 아니면 False 리던
@@ -314,13 +323,21 @@ class ListClass:
             bool: 검색 결과
         """
 
-        def contains(list, filter):
+        def contains(list, filter, filter_dict):
             for x in list:
-                if filter(x):
-                    return True
+                if type(x) is dict:
+                    if filter_dict(x):
+                        return True
+                else:
+                    if filter(x):
+                        return True
             return False
 
-        return contains(self.__list_class, lambda x: getattr(x, property_name) == search_keyword)
+        return contains(
+            self.__list_class,
+            lambda x: getattr(x, property_name) == search_keyword,
+            lambda x: x[property_name] == search_keyword,
+        )
 
     def sort(self, property_name: str, reverse: bool = False) -> None:
         """리스트 정렬
@@ -330,9 +347,3 @@ class ListClass:
             reverse (bool, optional): False - 오름차순, True - 내림차순. Defaults to True.
         """
         self.__list_class = sorted(self.__list_class, key=operator.attrgetter(property_name), reverse=reverse)
-
-
-if __name__ == "__main__":
-    df = pd.DataFrame({"A": ["1  ", "  4", " 7"], "B": [2, 5, 8], "C": [" 3", "6", " 9   "]})
-    print(df)
-    print(trim_df(df))
