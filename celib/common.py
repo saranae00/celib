@@ -13,8 +13,7 @@ import operator
 
 
 class RunningTimeDecorator:
-    """실행 시간 표시 데코레이터
-    """
+    """실행 시간 표시 데코레이터"""
 
     def __init__(self, logger=None, show_section: bool = True, show_pid: bool = True):
         """init
@@ -257,7 +256,10 @@ def unnesting(df: pd.DataFrame, explode_columns: list) -> pd.DataFrame:
 
     list_columns = df.columns
     idx = df.index.repeat(df[explode_columns[0]].str.len())
-    df1 = pd.concat([pd.DataFrame({x: np.concatenate(df[x].values)}) for x in explode_columns], axis=1)
+    df1 = pd.concat(
+        [pd.DataFrame({x: np.concatenate(df[x].values)}) for x in explode_columns],
+        axis=1,
+    )
     df1.index = idx
     result = df1.join(df.drop(explode_columns, 1), how="left").reset_index(drop=True)
     result = result[list_columns]
@@ -282,14 +284,14 @@ def trim_df(df: pd.DataFrame) -> pd.DataFrame:
 class ListClass:
     @property
     def list_class(self) -> List:
-        return self.__list_class
+        return self._list
 
     @list_class.setter
     def list_class(self, list_class: List) -> None:
-        self.__list_class = list_class
+        self._list = list_class
 
     def __init__(self, list_class: List = []) -> None:
-        self.__list_class = list_class
+        self._list = list_class
 
     def find_node(self, property_name: str, search_keyword: Any) -> List:
         """list of class 에서 property_name 값이 search_keyword인 노드를 리턴
@@ -302,7 +304,7 @@ class ListClass:
             List: 검색된 노드 리스트
         """
         result = []
-        for x in self.__list_class:
+        for x in self._list:
             if type(x) is dict:
                 if x[property_name] == search_keyword:
                     result.append(x)
@@ -334,7 +336,7 @@ class ListClass:
             return False
 
         return contains(
-            self.__list_class,
+            self._list,
             lambda x: getattr(x, property_name) == search_keyword,
             lambda x: x[property_name] == search_keyword,
         )
@@ -346,4 +348,6 @@ class ListClass:
             property_name (str): 정렬할 class의 property 이름
             reverse (bool, optional): False - 오름차순, True - 내림차순. Defaults to True.
         """
-        self.__list_class = sorted(self.__list_class, key=operator.attrgetter(property_name), reverse=reverse)
+        self._list = sorted(
+            self._list, key=operator.attrgetter(property_name), reverse=reverse
+        )
