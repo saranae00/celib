@@ -22,5 +22,5 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
-    py_modules=["celib.common", "celib.celist.py"],
+    py_modules=["celib.common", "celib.celist"],
 )
