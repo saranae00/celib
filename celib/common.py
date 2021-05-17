@@ -105,17 +105,17 @@ def get_last_path(dir: str, type: str = "dir", by: str = "name") -> str:
     """
 
     if type == "dir":
-        dir_list = list(filter(os.path.isdir, glob.glob(dir + "/*")))
+        dir_list_class = list(filter(os.path.isdir, glob.glob(dir + "/*")))
     elif type == "file":
-        dir_list = list(filter(os.path.isfile, glob.glob(dir + "/*")))
+        dir_list_class = list(filter(os.path.isfile, glob.glob(dir + "/*")))
     elif type == "all":
-        dir_list = glob.glob(dir + "/*")
+        dir_list_class = glob.glob(dir + "/*")
     else:
-        dir_list = glob.glob(dir + "/*" + type)
+        dir_list_class = glob.glob(dir + "/*" + type)
 
     last_path = ""
 
-    if len(dir_list) > 0:
+    if len(dir_list_class) > 0:
         if by == "mtime":
             sort_by = os.path.getmtime
         elif by == "ctime":
@@ -123,9 +123,9 @@ def get_last_path(dir: str, type: str = "dir", by: str = "name") -> str:
         elif by == "atime":
             sort_by = os.path.getatime
         elif by == "name":
-            return max(dir_list)
+            return max(dir_list_class)
 
-        last_path = max(dir_list, key=sort_by)
+        last_path = max(dir_list_class, key=sort_by)
     return last_path
 
 
@@ -184,9 +184,9 @@ def parallelize_dataframe_with_args(func, df: pd.DataFrame, *args) -> pd.DataFra
     list_args = list(args)
 
     for item in df_split:
-        each_list = [item]
-        each_list.append(list_args)
-        list_tuple_args.append(tuple(each_list))
+        each_list_class = [item]
+        each_list_class.append(list_args)
+        list_tuple_args.append(tuple(each_list_class))
     df = pd.concat(pool.map(lambda x: func(*x), list_tuple_args))
     pool.close()
     pool.join()
@@ -284,14 +284,14 @@ def trim_df(df: pd.DataFrame) -> pd.DataFrame:
 class ListClass:
     @property
     def list_class(self) -> List:
-        return self._list
+        return self._list_class
 
     @list_class.setter
     def list_class(self, list_class: List) -> None:
-        self._list = list_class
+        self._list_class = list_class
 
     def __init__(self, list_class: List = []) -> None:
-        self._list = list_class
+        self._list_class = list_class
 
     def find_node(self, property_name: str, search_keyword: Any) -> List:
         """list of class 에서 property_name 값이 search_keyword인 노드를 리턴
@@ -304,7 +304,7 @@ class ListClass:
             List: 검색된 노드 리스트
         """
         result = []
-        for x in self._list:
+        for x in self._list_class:
             if type(x) is dict:
                 if x[property_name] == search_keyword:
                     result.append(x)
@@ -336,7 +336,7 @@ class ListClass:
             return False
 
         return contains(
-            self._list,
+            self._list_class,
             lambda x: getattr(x, property_name) == search_keyword,
             lambda x: x[property_name] == search_keyword,
         )
@@ -348,6 +348,6 @@ class ListClass:
             property_name (str): 정렬할 class의 property 이름
             reverse (bool, optional): False - 오름차순, True - 내림차순. Defaults to True.
         """
-        self._list = sorted(
-            self._list, key=operator.attrgetter(property_name), reverse=reverse
+        self._list_class = sorted(
+            self._list_class, key=operator.attrgetter(property_name), reverse=reverse
         )
